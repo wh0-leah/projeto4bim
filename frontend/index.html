@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineLog — Catálogo de Filmes e Séries</title>
+  <meta name="description" content="Catálogo, avalie e descubra filmes e séries. Crie suas listas de assistir e receba recomendações personalizadas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="navbar-brand">
+        <span class="brand-icon">🎬</span>
+        <span class="brand-name">CineLog</span>
+      </div>
+      <div class="navbar-search">
+        <input type="text" id="search-input" class="search-input" placeholder="Buscar filmes, séries, diretores..." />
+        <button class="search-btn" id="search-btn">🔍</button>
+      </div>
+      <div class="navbar-actions">
+        <a href="#" class="nav-link" id="nav-filmes" data-page="filmes">Filmes</a>
+        <a href="#" class="nav-link" id="nav-series" data-page="series">Séries</a>
+        <a href="#" class="nav-link" id="nav-listas" data-page="listas">Minhas Listas</a>
+        <div id="nav-auth-area">
+          <button class="btn btn-outline" id="btn-login">Entrar</button>
+          <button class="btn btn-primary" id="btn-cadastro">Cadastrar</button>
+        </div>
+        <div id="nav-user-area" class="hidden">
+          <div class="user-avatar" id="user-avatar-nav">
+            <span id="user-initial">U</span>
+          </div>
+          <div class="user-dropdown" id="user-dropdown">
+            <span id="user-name-nav"></span>
+            <a href="#" data-page="perfil">Meu Perfil</a>
+            <a href="#" id="btn-logout">Sair</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Páginas -->
+    <main id="main-content">
+      <!-- Home -->
+      <section id="page-home" class="page active">
+        <div class="hero">
+          <div class="hero-content">
+            <h1 class="hero-title">Seu universo <span class="gradient-text">cinematográfico</span> em um só lugar</h1>
+            <p class="hero-subtitle">Catalogues filmes e séries, escreva críticas, crie listas e receba recomendações personalizadas.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary btn-lg" id="hero-explore">Explorar Catálogo</button>
+              <button class="btn btn-outline btn-lg" id="hero-cadastro">Criar Conta Grátis</button>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="floating-cards">
+              <div class="card-float card-1">🎬</div>
+              <div class="card-float card-2">⭐</div>
+              <div class="card-float card-3">📺</div>
+              <div class="card-float card-4">🎭</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trending -->
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title">🔥 Em Alta Agora</h2>
+            <a href="#" class="section-link" data-page="filmes">Ver todos</a>
+          </div>
+          <div class="cards-grid" id="trending-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </section>
+
+        <!-- Filmes Destaque -->
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title">🎬 Filmes em Destaque</h2>
+            <a href="#" class="section-link" data-page="filmes">Ver todos</a>
+          </div>
+          <div class="cards-grid" id="filmes-destaque-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </section>
+
+        <!-- Séries Destaque -->
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title">📺 Séries em Destaque</h2>
+            <a href="#" class="section-link" data-page="series">Ver todos</a>
+          </div>
+          <div class="cards-grid" id="series-destaque-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Filmes -->
+      <section id="page-filmes" class="page hidden">
+        <div class="page-header">
+          <h1 class="page-title">🎬 Filmes</h1>
+          <button class="btn btn-primary" id="btn-add-filme">+ Adicionar Filme</button>
+        </div>
+        <div class="filters-bar">
+          <input type="text" class="filter-input" id="filme-search" placeholder="Título, diretor, ator..." />
+          <select class="filter-select" id="filme-genero">
+            <option value="">Todos os gêneros</option>
+            <option value="Ação">Ação</option>
+            <option value="Aventura">Aventura</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Drama">Drama</option>
+            <option value="Ficção Científica">Ficção Científica</option>
+            <option value="Horror">Horror</option>
+            <option value="Romance">Romance</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Animação">Animação</option>
+            <option value="Documentário">Documentário</option>
+            <option value="Crime">Crime</option>
+            <option value="Biografia">Biografia</option>
+          </select>
+          <button class="btn btn-secondary" id="btn-filtrar-filmes">Filtrar</button>
+        </div>
+        <div class="cards-grid" id="filmes-grid"></div>
+        <div class="pagination" id="filmes-pagination"></div>
+      </section>
+
+      <!-- Séries -->
+      <section id="page-series" class="page hidden">
+        <div class="page-header">
+          <h1 class="page-title">📺 Séries</h1>
+          <button class="btn btn-primary" id="btn-add-serie">+ Adicionar Série</button>
+        </div>
+        <div class="filters-bar">
+          <input type="text" class="filter-input" id="serie-search" placeholder="Título, criador, ator..." />
+          <select class="filter-select" id="serie-genero">
+            <option value="">Todos os gêneros</option>
+            <option value="Ação">Ação</option>
+            <option value="Drama">Drama</option>
+            <option value="Comédia">Comédia</option>
+            <option value="Ficção Científica">Ficção Científica</option>
+            <option value="Terror">Terror</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Crime">Crime</option>
+            <option value="Mistério">Mistério</option>
+            <option value="Animação">Animação</option>
+          </select>
+          <select class="filter-select" id="serie-status">
+            <option value="">Todos os status</option>
+            <option value="EM_ANDAMENTO">Em Andamento</option>
+            <option value="FINALIZADA">Finalizada</option>
+            <option value="CANCELADA">Cancelada</option>
+          </select>
+          <button class="btn btn-secondary" id="btn-filtrar-series">Filtrar</button>
+        </div>
+        <div class="cards-grid" id="series-grid"></div>
+        <div class="pagination" id="series-pagination"></div>
+      </section>
+
+      <!-- Listas -->
+      <section id="page-listas" class="page hidden">
+        <div class="page-header">
+          <h1 class="page-title">📋 Minhas Listas</h1>
+          <button class="btn btn-primary" id="btn-add-lista">+ Nova Lista</button>
+        </div>
+        <div id="listas-container"></div>
+      </section>
+
+      <!-- Perfil -->
+      <section id="page-perfil" class="page hidden">
+        <div class="perfil-container" id="perfil-container"></div>
+      </section>
+
+      <!-- Detalhe -->
+      <section id="page-detalhe" class="page hidden">
+        <div id="detalhe-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modais -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <!-- Login -->
+    <div class="modal hidden" id="modal-login">
+      <button class="modal-close" data-close>✕</button>
+      <h2 class="modal-title">Entrar no CineLog</h2>
+      <form id="form-login" class="modal-form">
+        <div class="form-group">
+          <label for="login-email">E-mail</label>
+          <input type="email" id="login-email" class="form-input" placeholder="seu@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="login-senha">Senha</label>
+          <input type="password" id="login-senha" class="form-input" placeholder="••••••••" required />
+        </div>
+        <div class="form-error hidden" id="login-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Entrar</button>
+        <p class="form-footer">Não tem conta? <a href="#" id="switch-to-cadastro">Cadastrar-se</a></p>
+      </form>
+    </div>
+
+    <!-- Cadastro -->
+    <div class="modal hidden" id="modal-cadastro">
+      <button class="modal-close" data-close>✕</button>
+      <h2 class="modal-title">Criar Conta</h2>
+      <form id="form-cadastro" class="modal-form">
+        <div class="form-group">
+          <label for="cad-nome">Nome Completo</label>
+          <input type="text" id="cad-nome" class="form-input" placeholder="Seu nome" required />
+        </div>
+        <div class="form-group">
+          <label for="cad-email">E-mail</label>
+          <input type="email" id="cad-email" class="form-input" placeholder="seu@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="cad-senha">Senha</label>
+          <input type="password" id="cad-senha" class="form-input" placeholder="Mínimo 6 caracteres" required minlength="6" />
+        </div>
+        <div class="form-error hidden" id="cad-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Criar Conta</button>
+        <p class="form-footer">Já tem conta? <a href="#" id="switch-to-login">Entrar</a></p>
+      </form>
+    </div>
+
+    <!-- Adicionar Filme -->
+    <div class="modal modal-wide hidden" id="modal-filme">
+      <button class="modal-close" data-close>✕</button>
+      <h2 class="modal-title" id="modal-filme-title">Adicionar Filme</h2>
+      <form id="form-filme" class="modal-form" enctype="multipart/form-data">
+        <input type="hidden" id="filme-id" />
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="f-titulo">Título *</label>
+            <input type="text" id="f-titulo" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="f-diretor">Diretor *</label>
+            <input type="text" id="f-diretor" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="f-ano">Ano de Lançamento *</label>
+            <input type="number" id="f-ano" class="form-input" min="1888" max="2030" required />
+          </div>
+          <div class="form-group">
+            <label for="f-duracao">Duração (min)</label>
+            <input type="number" id="f-duracao" class="form-input" min="1" />
+          </div>
+          <div class="form-group">
+            <label for="f-classificacao">Classificação</label>
+            <select id="f-classificacao" class="form-input">
+              <option value="L">Livre</option>
+              <option value="DEZ">10 anos</option>
+              <option value="DOZE">12 anos</option>
+              <option value="QUATORZE">14 anos</option>
+              <option value="DEZESSEIS">16 anos</option>
+              <option value="DEZOITO">18 anos</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-trailer">Link do Trailer</label>
+            <input type="url" id="f-trailer" class="form-input" placeholder="https://youtube.com/..." />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f-generos">Gêneros (separados por vírgula)</label>
+          <input type="text" id="f-generos" class="form-input" placeholder="Ação, Aventura, Drama" />
+        </div>
+        <div class="form-group">
+          <label for="f-elenco">Elenco (separados por vírgula)</label>
+          <input type="text" id="f-elenco" class="form-input" placeholder="Ator 1, Atriz 2, ..." />
+        </div>
+        <div class="form-group">
+          <label for="f-sinopse">Sinopse</label>
+          <textarea id="f-sinopse" class="form-input form-textarea" rows="3" placeholder="Descrição do filme..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="f-capa">Capa do Filme</label>
+          <input type="file" id="f-capa" class="form-input" accept="image/*" />
+        </div>
+        <div class="form-error hidden" id="filme-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Salvar Filme</button>
+      </form>
+    </div>
+
+    <!-- Adicionar Série -->
+    <div class="modal modal-wide hidden" id="modal-serie">
+      <button class="modal-close" data-close>✕</button>
+      <h2 class="modal-title" id="modal-serie-title">Adicionar Série</h2>
+      <form id="form-serie" class="modal-form" enctype="multipart/form-data">
+        <input type="hidden" id="serie-id" />
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="s-titulo">Título *</label>
+            <input type="text" id="s-titulo" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="s-criador">Criador *</label>
+            <input type="text" id="s-criador" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label for="s-ano-inicio">Ano de Início *</label>
+            <input type="number" id="s-ano-inicio" class="form-input" min="1900" max="2030" required />
+          </div>
+          <div class="form-group">
+            <label for="s-ano-fim">Ano de Fim</label>
+            <input type="number" id="s-ano-fim" class="form-input" min="1900" max="2030" />
+          </div>
+          <div class="form-group">
+            <label for="s-temporadas">Temporadas</label>
+            <input type="number" id="s-temporadas" class="form-input" min="1" value="1" />
+          </div>
+          <div class="form-group">
+            <label for="s-status">Status</label>
+            <select id="s-status" class="form-input">
+              <option value="EM_ANDAMENTO">Em Andamento</option>
+              <option value="FINALIZADA">Finalizada</option>
+              <option value="CANCELADA">Cancelada</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="s-classificacao">Classificação</label>
+            <select id="s-classificacao" class="form-input">
+              <option value="L">Livre</option>
+              <option value="DEZ">10 anos</option>
+              <option value="DOZE">12 anos</option>
+              <option value="QUATORZE">14 anos</option>
+              <option value="DEZESSEIS">16 anos</option>
+              <option value="DEZOITO">18 anos</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="s-trailer">Link do Trailer</label>
+            <input type="url" id="s-trailer" class="form-input" placeholder="https://youtube.com/..." />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="s-generos">Gêneros (separados por vírgula)</label>
+          <input type="text" id="s-generos" class="form-input" placeholder="Drama, Thriller, Ficção Científica" />
+        </div>
+        <div class="form-group">
+          <label for="s-elenco">Elenco (separados por vírgula)</label>
+          <input type="text" id="s-elenco" class="form-input" placeholder="Ator 1, Atriz 2, ..." />
+        </div>
+        <div class="form-group">
+          <label for="s-sinopse">Sinopse</label>
+          <textarea id="s-sinopse" class="form-input form-textarea" rows="3" placeholder="Descrição da série..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="s-banner">Banner da Série</label>
+          <input type="file" id="s-banner" class="form-input" accept="image/*" />
+        </div>
+        <div class="form-error hidden" id="serie-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Salvar Série</button>
+      </form>
+    </div>
+
+    <!-- Avaliação -->
+    <div class="modal hidden" id="modal-avaliacao">
+      <button class="modal-close" data-close>✕</button>
+      <h2 class="modal-title">Avaliar</h2>
+      <form id="form-avaliacao" class="modal-form">
+        <input type="hidden" id="aval-conteudo-id" />
+        <input type="hidden" id="aval-tipo" />
+        <input type="hidden" id="aval-id" />
+        <div class="rating-stars" id="rating-stars">
+          <span class="star" data-value="1">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="5">★</span>
+          <span class="star" data-value="6">★</span>
+          <span class="star" data-value="7">★</span>
+          <span class="star" data-value="8">★</span>
+          <span class="star" data-value="9">★</span>
+          <span class="star" data-value="10">★</span>
+        </div>
+        <div class="rating-label" id="rating-label">Selecione uma nota (1-10)</div>
+        <input type="hidden" id="aval-nota" />
+        <div class="form-group">
+          <label for="aval-critica">Sua crítica (opcional)</label>
+          <textarea id="aval-critica" class="form-input form-textarea" rows="4" placeholder="O que você achou?"></textarea>
+        </div>
+        <div class="form-error hidden" id="aval-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Publicar Avaliação</button>
+      </form>
+    </div>
+
+    <!-- Nova Lista -->
+    <div class="modal hidden" id="modal-nova-lista">
+      <button class="modal-close" data-close>✕</button>
+      <h2 class="modal-title">Nova Lista</h2>
+      <form id="form-nova-lista" class="modal-form">
+        <div class="form-group">
+          <label for="lista-nome">Nome da Lista *</label>
+          <input type="text" id="lista-nome" class="form-input" placeholder="Ex: Assistir no fim de semana" required />
+        </div>
+        <div class="form-group form-checkbox">
+          <input type="checkbox" id="lista-publica" />
+          <label for="lista-publica">Tornar lista pública</label>
+        </div>
+        <div class="form-error hidden" id="lista-error"></div>
+        <button type="submit" class="btn btn-primary btn-full">Criar Lista</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="src/services/api.js"></script>
+  <script type="module" src="src/contexts/auth.js"></script>
+  <script type="module" src="src/components/toast.js"></script>
+  <script type="module" src="src/components/card.js"></script>
+  <script type="module" src="src/components/modal.js"></script>
+  <script type="module" src="src/components/rating.js"></script>
+  <script type="module" src="src/pages/home.js"></script>
+  <script type="module" src="src/pages/filmes.js"></script>
+  <script type="module" src="src/pages/series.js"></script>
+  <script type="module" src="src/pages/listas.js"></script>
+  <script type="module" src="src/pages/detalhe.js"></script>
+  <script type="module" src="src/pages/perfil.js"></script>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

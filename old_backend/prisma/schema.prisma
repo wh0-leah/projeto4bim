@@ -1,0 +1,168 @@
+// Prisma schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────
+enum Role {
+  USER
+  ADMIN
+}
+
+enum StatusSerie {
+  EM_ANDAMENTO
+  FINALIZADA
+  CANCELADA
+}
+
+enum StatusAssistido {
+  PENDENTE
+  ASSISTIDO
+}
+
+enum TipoConteudo {
+  FILME
+  SERIE
+}
+
+enum Classificacao {
+  L
+  DEZ
+  DOZE
+  QUATORZE
+  DEZESSEIS
+  DEZOITO
+}
+
+// ─── Modelos ──────────────────────────────────────────────────
+
+model Usuario {
+  id           String   @id @default(uuid())
+  nome         String
+  email        String   @unique
+  senhaHash    String
+  avatar       String?
+  bio          String?  @default("")
+  role         Role     @default(USER)
+  ativo        Boolean  @default(true)
+  dataCadastro DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  avaliacoes   Avaliacao[]
+  listas       ListaAssistir[]
+  filmesCriados Filme[]
+  seriesCriadas Serie[]
+
+  @@map("usuarios")
+}
+
+model Filme {
+  id                  String        @id @default(uuid())
+  titulo              String
+  diretor             String
+  generos             String[]
+  elenco              String[]
+  anoLancamento       Int
+  duracao             Int           @default(0)
+  sinopse             String?       @default("")
+  classificacao       String        @default("L")
+  capa                String?
+  trailer             String?
+  mediaAvaliacao      Float         @default(0)
+  usuarioCriadoPorId  String
+  dataCriacao         DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  usuarioCriadoPor    Usuario       @relation(fields: [usuarioCriadoPorId], references: [id])
+  avaliacoes          Avaliacao[]
+  itensLista          ItemLista[]
+
+  @@map("filmes")
+}
+
+model Serie {
+  id                  String        @id @default(uuid())
+  titulo              String
+  criador             String
+  generos             String[]
+  elenco              String[]
+  temporadas          Int           @default(1)
+  anoInicio           Int
+  anoFim              Int?
+  status              StatusSerie   @default(EM_ANDAMENTO)
+  sinopse             String?       @default("")
+  classificacao       String        @default("L")
+  banner              String?
+  trailer             String?
+  mediaAvaliacao      Float         @default(0)
+  usuarioCriadoPorId  String
+  dataCriacao         DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  usuarioCriadoPor    Usuario       @relation(fields: [usuarioCriadoPorId], references: [id])
+  avaliacoes          Avaliacao[]
+  itensLista          ItemLista[]
+
+  @@map("series")
+}
+
+model Avaliacao {
+  id            String       @id @default(uuid())
+  nota          Float
+  critica       String?      @default("")
+  editada       Boolean      @default(false)
+  curtidas      Int          @default(0)
+  dataAvaliacao DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  usuarioId     String
+  usuario       Usuario      @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  filmeId       String?
+  filme         Filme?       @relation(fields: [filmeId], references: [id], onDelete: Cascade)
+
+  serieId       String?
+  serie         Serie?       @relation(fields: [serieId], references: [id], onDelete: Cascade)
+
+  @@unique([usuarioId, filmeId])
+  @@unique([usuarioId, serieId])
+  @@map("avaliacoes")
+}
+
+model ListaAssistir {
+  id          String      @id @default(uuid())
+  nome        String
+  publica     Boolean     @default(false)
+  dataCriacao DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  usuarioId   String
+  usuario     Usuario     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  itens       ItemLista[]
+
+  @@map("listas_assistir")
+}
+
+model ItemLista {
+  id            String          @id @default(uuid())
+  status        StatusAssistido @default(PENDENTE)
+  favoritado    Boolean         @default(false)
+  dataAdicionado DateTime       @default(now())
+
+  listaId       String
+  lista         ListaAssistir   @relation(fields: [listaId], references: [id], onDelete: Cascade)
+
+  filmeId       String?
+  filme         Filme?          @relation(fields: [filmeId], references: [id], onDelete: Cascade)
+
+  serieId       String?
+  serie         Serie?          @relation(fields: [serieId], references: [id], onDelete: Cascade)
+
+  @@map("itens_lista")
+}
