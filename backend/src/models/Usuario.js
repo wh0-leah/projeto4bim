@@ -13,10 +13,10 @@ export class Usuario {
 
   constructor({ id, nome, email, senhaHash, avatar = null }) {
     this.#id = id;
-    this.#nome = nome;
-    this.#email = email;
-    this.#senhaHash = senhaHash; // senha já deve vir hasheada
-    this.#avatar = avatar;
+    this.nome = nome;
+    this.email = email;
+    this.senhaHash = senhaHash;
+    this.avatar = avatar;
   }
 
   // ── Getters ──────────────────────────────────────────────
@@ -51,18 +51,48 @@ export class Usuario {
     return this.#senhaHash;
   }
 
+  get role() {
+    return 'USER';
+  }
+
+  get nivel() {
+    return 'Geral';
+  }
+
   toJSON() {
     return {
       id: this.#id,
       nome: this.#nome,
       email: this.#email,
       avatar: this.#avatar,
+      role: this.role,
+      nivel: this.nivel,
     };
   }
 
   toPublicJSON() {
     // Versão sem dados sensíveis para respostas da API
-    const { id, nome, avatar } = this.toJSON();
-    return { id, nome, avatar };
+    const { id, nome, avatar, role, nivel } = this.toJSON();
+    return { id, nome, avatar, role, nivel };
+  }
+}
+
+export class UsuarioComum extends Usuario {
+  get role() {
+    return 'USER';
+  }
+
+  get nivel() {
+    return 'Usuário Comum';
+  }
+}
+
+export class UsuarioAdmin extends Usuario {
+  get role() {
+    return 'ADMIN';
+  }
+
+  get nivel() {
+    return 'Administrador';
   }
 }

@@ -37,20 +37,20 @@ export class Serie {
     criadoPorUsuarioId = null,
   }) {
     this.#id = id;
-    this.#titulo = titulo;
-    this.#diretores = Array.isArray(diretores) ? diretores : [diretores];
-    this.#generos = Array.isArray(generos) ? generos : [generos];
-    this.#elenco = Array.isArray(elenco) ? elenco : [];
-    this.#temporadas = Number(temporadas);
+    this.titulo = titulo;
+    this.diretores = Array.isArray(diretores) ? diretores : [diretores];
+    this.generos = Array.isArray(generos) ? generos : [generos];
+    this.elenco = elenco;
+    this.temporadas = temporadas;
     this.#anoInicio = Number(anoInicio);
-    this.#anoFim = anoFim ? Number(anoFim) : null;
-    this.#status = status;
-    this.#sinopse = sinopse;
-    this.#classificacao = classificacao;
-    this.#capa = capa;
-    this.#trailer = trailer;
-    this.#mediaAvaliacao = Number(mediaAvaliacao);
-    this.#criadoPorUsuarioId = criadoPorUsuarioId;
+    this.anoFim = anoFim;
+    this.status = status;
+    this.sinopse = sinopse;
+    this.classificacao = classificacao;
+    this.capa = capa;
+    this.trailer = trailer;
+    this.mediaAvaliacao = mediaAvaliacao;
+    this.criadoPorUsuarioId = criadoPorUsuarioId;
   }
 
   // ── Getters ──────────────────────────────────────────────

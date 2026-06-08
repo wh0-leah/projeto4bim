@@ -35,18 +35,18 @@ export class Filme {
     criadoPorUsuarioId = null,
   }) {
     this.#id = id;
-    this.#titulo = titulo;
-    this.#diretores = Array.isArray(diretores) ? diretores : [diretores];
-    this.#generos = Array.isArray(generos) ? generos : [generos];
-    this.#elenco = Array.isArray(elenco) ? elenco : [elenco];
-    this.#anoLancamento = Number(anoLancamento);
-    this.#duracao = Number(duracao);
-    this.#sinopse = sinopse;
-    this.#classificacao = classificacao;
-    this.#capa = capa;
-    this.#trailer = trailer;
-    this.#mediaAvaliacao = Number(mediaAvaliacao);
-    this.#criadoPorUsuarioId = criadoPorUsuarioId;
+    this.titulo = titulo;
+    this.diretores = Array.isArray(diretores) ? diretores : [diretores];
+    this.generos = Array.isArray(generos) ? generos : [generos];
+    this.elenco = Array.isArray(elenco) ? elenco : [elenco];
+    this.anoLancamento = anoLancamento;
+    this.duracao = duracao;
+    this.sinopse = sinopse;
+    this.classificacao = classificacao;
+    this.capa = capa;
+    this.trailer = trailer;
+    this.mediaAvaliacao = mediaAvaliacao;
+    this.criadoPorUsuarioId = criadoPorUsuarioId;
   }
 
   // ── Getters ──────────────────────────────────────────────

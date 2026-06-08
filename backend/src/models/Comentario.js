@@ -19,8 +19,8 @@ export class Comentario {
     dataComentario = new Date(),
   }) {
     this.#id = id;
-    this.#nota = this.#validarNota(nota);
-    this.#critica = critica;
+    this.nota = nota;
+    this.critica = critica;
     this.#usuarioId = usuarioId;
     this.#conteudoId = conteudoId;
     this.#dataComentario = dataComentario instanceof Date ? dataComentario : new Date(dataComentario);

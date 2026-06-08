@@ -1,5 +1,5 @@
 // Exporta todos os modelos de domínio — Critério 3: Modularização
-export { Usuario } from './Usuario.js';
+export { Usuario, UsuarioComum, UsuarioAdmin } from './Usuario.js';
 export { Filme } from './Filme.js';
 export { Serie } from './Serie.js';
 export { Comentario } from './Comentario.js';

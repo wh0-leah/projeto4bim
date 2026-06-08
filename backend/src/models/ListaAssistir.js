@@ -17,10 +17,10 @@ export class ListaAssistir {
     publica = false,
   }) {
     this.#id = id;
-    this.#nome = nome;
+    this.nome = nome;
     this.#usuarioId = usuarioId;
     this.#itens = Array.isArray(itens) ? itens : [];
-    this.#publica = Boolean(publica);
+    this.publica = publica;
   }
 
   // ── Getters ──────────────────────────────────────────────
