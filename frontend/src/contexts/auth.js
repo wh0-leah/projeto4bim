@@ -1,4 +1,4 @@
-// Critério 3: Contexto de autenticação com ES Modules
+
 import { authAPI } from '../services/api.js';
 import { showToast } from '../components/toast.js';
 
@@ -49,7 +49,11 @@ export async function cadastrar(nome, email, senha) {
   return res;
 }
 
-export function logout() {
+export async function logout() {
+  try {
+    await authAPI.logout();
+  } catch {
+  }
   localStorage.removeItem('token');
   localStorage.removeItem('user');
   currentUser = null;

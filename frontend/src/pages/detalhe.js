@@ -111,12 +111,11 @@ function renderDetalhe(container, item, tipo) {
     </div>
   `;
 
-  // Add info-row styles dynamically
   const style = document.createElement('style');
   style.textContent = `.info-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:0.875rem}.info-row:last-child{border-bottom:none}.info-row .text-muted{color:var(--text-secondary)}`;
   container.appendChild(style);
 
-  // Bind action buttons
+  
   document.getElementById('btn-avaliar-detalhe')?.addEventListener('click', () => {
     initRating();
     document.getElementById('aval-conteudo-id').value = item.id;
@@ -168,7 +167,7 @@ function renderDetalhe(container, item, tipo) {
     openModal('modal-login');
   });
 
-  // Avaliação form
+  
   document.getElementById('form-avaliacao')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const nota = Number(document.getElementById('aval-nota').value);

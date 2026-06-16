@@ -1,4 +1,4 @@
-// Critério 3: ES Modules — serviço centralizado de API
+
 const API_URL = 'http://localhost:3001/api';
 
 function getToken() {
@@ -11,7 +11,7 @@ async function request(method, path, body = null, isFormData = false) {
   if (token) headers['Authorization'] = `Bearer ${token}`;
   if (!isFormData) headers['Content-Type'] = 'application/json';
 
-  const options = { method, headers };
+  const options = { method, headers, credentials: 'include' };
   if (body) options.body = isFormData ? body : JSON.stringify(body);
 
   const res = await fetch(`${API_URL}${path}`, options);
@@ -20,25 +20,26 @@ async function request(method, path, body = null, isFormData = false) {
   return data;
 }
 
-// ── Auth ───────────────────────────────────────────────────
+
 export const authAPI = {
   cadastrar: (d) => request('POST', '/auth/cadastrar', d),
   login: (d) => request('POST', '/auth/login', d),
+  logout: () => request('POST', '/auth/logout'),
   perfil: () => request('GET', '/auth/perfil'),
   atualizarPerfil: (fd) => request('PUT', '/auth/perfil', fd, true),
   alterarSenha: (d) => request('PUT', '/auth/senha', d),
 };
 
-// ── Filmes ─────────────────────────────────────────────────
+
 export const filmesAPI = {
   listar: (params = {}) => request('GET', `/filmes?${new URLSearchParams(params)}`),
   obter: (id) => request('GET', `/filmes/${id}`),
   criar: (fd) => request('POST', '/filmes', fd, true),
   atualizar: (id, fd) => request('PUT', `/filmes/${id}`, fd, true),
-  remover: (id) => request('DELETE', `/filmes/${id}`),
+  remover: (id) => request('DELETE', '/filmes/excluirNomeCadastro', { id }),
 };
 
-// ── Séries ─────────────────────────────────────────────────
+
 export const seriesAPI = {
   listar: (params = {}) => request('GET', `/series?${new URLSearchParams(params)}`),
   obter: (id) => request('GET', `/series/${id}`),
@@ -47,7 +48,7 @@ export const seriesAPI = {
   remover: (id) => request('DELETE', `/series/${id}`),
 };
 
-// ── Avaliações ─────────────────────────────────────────────
+
 export const avaliacoesAPI = {
   listar: (params) => request('GET', `/avaliacoes?${new URLSearchParams(params)}`),
   criar: (d) => request('POST', '/avaliacoes', d),
@@ -56,7 +57,7 @@ export const avaliacoesAPI = {
   curtir: (id) => request('POST', `/avaliacoes/${id}/curtir`),
 };
 
-// ── Listas ─────────────────────────────────────────────────
+
 export const listasAPI = {
   listar: () => request('GET', '/listas'),
   obter: (id) => request('GET', `/listas/${id}`),
@@ -68,7 +69,7 @@ export const listasAPI = {
   removerItem: (listaId, itemId) => request('DELETE', `/listas/${listaId}/itens/${itemId}`),
 };
 
-// ── Recomendações ──────────────────────────────────────────
+
 export const recomendacoesAPI = {
   personalizadas: (limit = 10) => request('GET', `/recomendacoes?limit=${limit}`),
   trending: (limit = 10) => request('GET', `/recomendacoes/trending?limit=${limit}`),

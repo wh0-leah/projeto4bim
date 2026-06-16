@@ -1,4 +1,4 @@
-// Toast notifications component
+
 export function showToast(message, type = 'info') {
   const container = document.getElementById('toast-container');
   if (!container) return;

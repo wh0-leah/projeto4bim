@@ -1,4 +1,4 @@
-// ── Main Application Router — Critério 3: ES Modules
+
 import { initAuth, login, cadastrar, logout } from './contexts/auth.js';
 import { openModal, closeAllModals, showError, hideError } from './components/modal.js';
 import { showToast } from './components/toast.js';
@@ -10,7 +10,7 @@ import { initDetalhe } from './pages/detalhe.js';
 import { initPerfil } from './pages/perfil.js';
 import { filmesAPI, seriesAPI } from './services/api.js';
 
-// ── Router ─────────────────────────────────────────────────
+
 let currentPage = 'home';
 
 function navigateTo(page, params = {}) {
@@ -37,13 +37,13 @@ function navigateTo(page, params = {}) {
   }
 }
 
-// Custom navigation event
+
 window.addEventListener('navigate', (e) => {
   const { page, ...params } = e.detail;
   navigateTo(page, params);
 });
 
-// ── Nav Links ──────────────────────────────────────────────
+
 document.querySelectorAll('[data-page]').forEach(el => {
   el.addEventListener('click', (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ document.querySelectorAll('[data-page]').forEach(el => {
 
 document.querySelector('.navbar-brand')?.addEventListener('click', () => navigateTo('home'));
 
-// ── Search ─────────────────────────────────────────────────
+
 document.getElementById('search-btn')?.addEventListener('click', () => doSearch());
 document.getElementById('search-input')?.addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
@@ -64,7 +64,7 @@ async function doSearch() {
   if (!query) return;
 
   navigateTo('filmes');
-  // Wait for page to render then trigger filter
+  
   setTimeout(() => {
     const searchInput = document.getElementById('filme-search');
     if (searchInput) searchInput.value = query;
@@ -72,7 +72,7 @@ async function doSearch() {
   }, 100);
 }
 
-// ── Auth Modal Triggers ────────────────────────────────────
+
 document.getElementById('btn-login')?.addEventListener('click', () => openModal('modal-login'));
 document.getElementById('btn-cadastro')?.addEventListener('click', () => openModal('modal-cadastro'));
 document.getElementById('hero-cadastro')?.addEventListener('click', () => openModal('modal-cadastro'));
@@ -86,7 +86,7 @@ document.getElementById('switch-to-login')?.addEventListener('click', (e) => {
   e.preventDefault(); openModal('modal-login');
 });
 
-// ── Login Form ─────────────────────────────────────────────
+
 document.getElementById('form-login')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   hideError('login-error');
@@ -101,7 +101,7 @@ document.getElementById('form-login')?.addEventListener('submit', async (e) => {
   }
 });
 
-// ── Cadastro Form ──────────────────────────────────────────
+
 document.getElementById('form-cadastro')?.addEventListener('submit', async (e) => {
   e.preventDefault();
   hideError('cad-error');
@@ -117,7 +117,7 @@ document.getElementById('form-cadastro')?.addEventListener('submit', async (e) =
   }
 });
 
-// ── Hero section links ─────────────────────────────────────
+
 document.querySelectorAll('.section-link').forEach(el => {
   el.addEventListener('click', (e) => {
     e.preventDefault();
@@ -125,7 +125,7 @@ document.querySelectorAll('.section-link').forEach(el => {
   });
 });
 
-// ── Init ───────────────────────────────────────────────────
+
 async function init() {
   await initAuth();
   navigateTo('home');

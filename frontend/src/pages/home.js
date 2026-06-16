@@ -2,7 +2,7 @@ import { recomendacoesAPI, filmesAPI, seriesAPI } from '../services/api.js';
 import { renderCards } from '../components/card.js';
 
 export async function initHome() {
-  // Trending
+  
   try {
     const trending = await recomendacoesAPI.trending(8);
     const grid = document.getElementById('trending-grid');
@@ -20,9 +20,9 @@ export async function initHome() {
         });
       });
     }
-  } catch { /* silently fail */ }
+  } catch {  }
 
-  // Filmes destaque
+  
   try {
     const { filmes } = await filmesAPI.listar({ limit: 8, page: 1 });
     const grid = document.getElementById('filmes-destaque-grid');
@@ -30,9 +30,9 @@ export async function initHome() {
       const { renderCards } = await import('../components/card.js');
       renderCards(grid, filmes, 'FILME');
     }
-  } catch { /* silently fail */ }
+  } catch {  }
 
-  // Séries destaque
+  
   try {
     const { series } = await seriesAPI.listar({ limit: 8, page: 1 });
     const grid = document.getElementById('series-destaque-grid');
@@ -40,5 +40,5 @@ export async function initHome() {
       const { renderCards } = await import('../components/card.js');
       renderCards(grid, series, 'SERIE');
     }
-  } catch { /* silently fail */ }
+  } catch {  }
 }

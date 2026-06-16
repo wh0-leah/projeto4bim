@@ -1,4 +1,4 @@
-// Card component for films and series
+
 export function createContentCard(item, tipo) {
   const isFilme = tipo === 'FILME';
   const img = isFilme ? item.capa : item.banner;

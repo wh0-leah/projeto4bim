@@ -1,4 +1,4 @@
-// Modal management component
+
 const overlay = document.getElementById('modal-overlay');
 
 export function openModal(id) {
@@ -12,7 +12,7 @@ export function closeAllModals() {
   document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
 }
 
-// Close on overlay click or [data-close] buttons
+
 overlay?.addEventListener('click', (e) => {
   if (e.target === overlay) closeAllModals();
 });

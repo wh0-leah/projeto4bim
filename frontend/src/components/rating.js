@@ -1,4 +1,4 @@
-// Star rating component
+
 let selectedRating = 0;
 
 export function initRating() {

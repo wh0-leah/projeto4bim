@@ -12,7 +12,7 @@
 </head>
 <body>
   <div id="app">
-    <!-- Navbar -->
+    
     <nav class="navbar" id="navbar">
       <div class="navbar-brand">
         <span class="brand-icon">🎬</span>
@@ -43,9 +43,9 @@
       </div>
     </nav>
 
-    <!-- Páginas -->
+    
     <main id="main-content">
-      <!-- Home -->
+      
       <section id="page-home" class="page active">
         <div class="hero">
           <div class="hero-content">
@@ -66,7 +66,7 @@
           </div>
         </div>
 
-        <!-- Trending -->
+        
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">🔥 Em Alta Agora</h2>
@@ -80,7 +80,7 @@
           </div>
         </section>
 
-        <!-- Filmes Destaque -->
+        
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">🎬 Filmes em Destaque</h2>
@@ -94,7 +94,7 @@
           </div>
         </section>
 
-        <!-- Séries Destaque -->
+        
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">📺 Séries em Destaque</h2>
@@ -109,7 +109,7 @@
         </section>
       </section>
 
-      <!-- Filmes -->
+      
       <section id="page-filmes" class="page hidden">
         <div class="page-header">
           <h1 class="page-title">🎬 Filmes</h1>
@@ -138,7 +138,7 @@
         <div class="pagination" id="filmes-pagination"></div>
       </section>
 
-      <!-- Séries -->
+      
       <section id="page-series" class="page hidden">
         <div class="page-header">
           <h1 class="page-title">📺 Séries</h1>
@@ -170,7 +170,7 @@
         <div class="pagination" id="series-pagination"></div>
       </section>
 
-      <!-- Listas -->
+      
       <section id="page-listas" class="page hidden">
         <div class="page-header">
           <h1 class="page-title">📋 Minhas Listas</h1>
@@ -179,21 +179,21 @@
         <div id="listas-container"></div>
       </section>
 
-      <!-- Perfil -->
+      
       <section id="page-perfil" class="page hidden">
         <div class="perfil-container" id="perfil-container"></div>
       </section>
 
-      <!-- Detalhe -->
+      
       <section id="page-detalhe" class="page hidden">
         <div id="detalhe-container"></div>
       </section>
     </main>
   </div>
 
-  <!-- Modais -->
+  
   <div class="modal-overlay hidden" id="modal-overlay">
-    <!-- Login -->
+    
     <div class="modal hidden" id="modal-login">
       <button class="modal-close" data-close>✕</button>
       <h2 class="modal-title">Entrar no CineLog</h2>
@@ -212,7 +212,7 @@
       </form>
     </div>
 
-    <!-- Cadastro -->
+    
     <div class="modal hidden" id="modal-cadastro">
       <button class="modal-close" data-close>✕</button>
       <h2 class="modal-title">Criar Conta</h2>
@@ -235,7 +235,7 @@
       </form>
     </div>
 
-    <!-- Adicionar Filme -->
+    
     <div class="modal modal-wide hidden" id="modal-filme">
       <button class="modal-close" data-close>✕</button>
       <h2 class="modal-title" id="modal-filme-title">Adicionar Filme</h2>
@@ -295,7 +295,7 @@
       </form>
     </div>
 
-    <!-- Adicionar Série -->
+    
     <div class="modal modal-wide hidden" id="modal-serie">
       <button class="modal-close" data-close>✕</button>
       <h2 class="modal-title" id="modal-serie-title">Adicionar Série</h2>
@@ -367,7 +367,7 @@
       </form>
     </div>
 
-    <!-- Avaliação -->
+    
     <div class="modal hidden" id="modal-avaliacao">
       <button class="modal-close" data-close>✕</button>
       <h2 class="modal-title">Avaliar</h2>
@@ -398,7 +398,7 @@
       </form>
     </div>
 
-    <!-- Nova Lista -->
+    
     <div class="modal hidden" id="modal-nova-lista">
       <button class="modal-close" data-close>✕</button>
       <h2 class="modal-title">Nova Lista</h2>
@@ -417,7 +417,7 @@
     </div>
   </div>
 
-  <!-- Toast -->
+  
   <div class="toast-container" id="toast-container"></div>
 
   <script type="module" src="src/services/api.js"></script>
