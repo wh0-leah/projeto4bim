@@ -1,1 +1,1 @@
-Catalogo de filmes e seriies
+Catalogo de filmes e series
